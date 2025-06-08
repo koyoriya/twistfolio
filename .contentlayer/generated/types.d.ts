@@ -15,7 +15,6 @@ export type Article = {
   type: 'Article'
   title: string
   publishedAt: IsoDateTimeString
-  path: string
   /** Markdown file body */
   body: Markdown
   id: string

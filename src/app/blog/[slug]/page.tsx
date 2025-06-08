@@ -2,11 +2,18 @@ import React from 'react';
 import { allArticles } from 'contentlayer/generated';
 import dayjs from 'dayjs';
 import { FileText, Calendar, Clock, ArrowLeft, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
 
-export const runtime = 'edge';
+interface BlogPageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+}
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const article = allArticles.find(a => a.id === params.slug);
+export default async function Page({ params }: BlogPageProps) {
+  const { slug } = await params;
+
+  const article = allArticles.find(a => a.id === slug);
 
   if (!article) {
     return (
@@ -49,10 +56,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
 
         <div className="mt-8">
-          <a href="/articles" className="text-blue-700 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 inline-flex items-center">
+          <Link href="/" className="text-blue-700 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 inline-flex items-center">
             <ArrowLeft className="w-4 h-4 mr-2" />
-            記事一覧に戻る
-          </a>
+            戻る
+          </Link>
         </div>
       </div>
     </main>
